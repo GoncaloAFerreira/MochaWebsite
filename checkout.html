@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout - Mocha Mocha</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <img src="assets/logo.png" alt="Mocha Mocha Logo" class="logo">
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="menu.html">Menu</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="checkout.html">Checkout</a>
+      <a href="profile.html">Profile</a>  
+    </nav>
+  </header>
+
+  <main>
+    <section id="cart-section">
+      <h1>Checkout</h1>
+      <div id="cart-items"></div>
+      <p id="cart-total">Total: €0.00</p>
+
+          <!-- Promo Code Section -->
+    <div id="promo-section">
+      <input type="text" id="promo-code" placeholder="Enter promo code" />
+      <button id="apply-promo">Apply</button>
+      <p id="promo-message"></p>
+    </div>
+    </section>
+    <section id="checkout-section">
+      <h1>Checkout</h1>
+    
+      <!-- Shipping Address Form -->
+      <h2>Shipping Address</h2>
+      <form id="shipping-form">
+        <input type="text" id="name" placeholder="Full Name" required />
+        <input type="text" id="address" placeholder="Address" required />
+        <input type="text" id="city" placeholder="City" required />
+        <input type="text" id="state" placeholder="State" required />
+        <input type="text" id="postal-code" placeholder="Postal Code" required />
+        <input type="tel" id="phone" placeholder="Phone Number" required />
+      </form>
+    
+      <!-- Payment Method -->
+      <h2>Payment Method</h2>
+      <form id="payment-form">
+        <label>
+          <input type="radio" name="payment-method" value="card" checked /> Credit/Debit Card
+        </label>
+        <div id="card-details">
+          <input type="text" id="card-number" placeholder="Card Number" required />
+          <input type="text" id="expiry-date" placeholder="MM/YY" required />
+          <input type="text" id="cvv" placeholder="CVV" required />
+        </div>
+        <label>
+          <input type="radio" name="payment-method" value="paypal" /> PayPal
+        </label>
+        <label>
+          <input type="radio" name="payment-method" value="cod" /> Cash on Delivery
+        </label>
+      </form>
+    
+      <!-- Submit Button -->
+      <button id="complete-purchase">Complete Purchase</button>
+      <p id="form-message"></p>
+    </section>    
+  </main>
+  <script>
+// Load cart from localStorage
+const cart = JSON.parse(localStorage.getItem("cart")) || [];
+let promoApplied = false; // Track if promo is applied
+let promoDiscount = 0; // Store the discount amount
+
+// Function to update cart display
+function updateCheckoutDisplay() {
+  const cartContainer = document.getElementById("cart-items");
+  const totalContainer = document.getElementById("cart-total");
+  cartContainer.innerHTML = ""; // Clear cart display
+  let total = 0;
+
+  cart.forEach((item, index) => {
+    const cartItem = document.createElement("div");
+    cartItem.classList.add("cart-item");
+    cartItem.innerHTML = `
+      <div>
+        <p>${item.name}</p>
+        <p>Price: €${item.price}</p>
+        <p>
+          Quantity: 
+          <button class="decrease-quantity" data-index="${index}">-</button>
+          <span>${item.quantity || 1}</span>
+          <button class="increase-quantity" data-index="${index}">+</button>
+        </p>
+        <button class="remove-from-cart" data-index="${index}">Remove</button>
+      </div>
+    `;
+    cartContainer.appendChild(cartItem);
+    total += parseFloat(item.price) * (item.quantity || 1); // Update total
+  });
+
+  // Apply promo discount if applicable
+  if (promoApplied) {
+    total -= promoDiscount;
+  }
+
+  totalContainer.textContent = `Total: €${total.toFixed(2)}`;
+  localStorage.setItem("cart", JSON.stringify(cart)); // Update localStorage
+}
+
+// Function to apply promo code
+function applyPromoCode() {
+  const promoCode = document.getElementById("promo-code").value.trim();
+  const promoMessage = document.getElementById("promo-message");
+  let total = cart.reduce((sum, item) => sum + parseFloat(item.price) * (item.quantity || 1), 0);
+
+  if (promoCode === "WELCOME10" && !promoApplied) {
+    promoDiscount = total * 0.1; // 10% discount
+    promoApplied = true;
+    promoMessage.textContent = `Promo applied! You saved €${promoDiscount.toFixed(2)}.`;
+  } else if (promoCode === "WELCOME10" && promoApplied) {
+    promoMessage.textContent = "Promo code already applied!";
+  } else {
+    promoMessage.textContent = "Invalid promo code.";
+  }
+
+  // Update the cart display with the discount applied
+  updateCheckoutDisplay();
+}
+
+// Function to handle purchase completion
+function completePurchase() {
+  const paymentMethod = document.querySelector('input[name="payment-method"]:checked').value;
+  const total = cart.reduce((sum, item) => sum + parseFloat(item.price) * (item.quantity || 1), 0) - (promoApplied ? promoDiscount : 0);
+
+  if (cart.length > 0) {
+    localStorage.setItem("orderTotal", total.toFixed(2)); // Save the total to localStorage
+    localStorage.setItem("orderDetails", JSON.stringify(cart)); // Save cart details
+    alert(`Thank you for your purchase! Payment via ${paymentMethod.toUpperCase()} completed.`);
+    localStorage.removeItem("cart"); // Clear the cart
+    localStorage.setItem("orderTimestamp", new Date().toLocaleString());
+    window.location.href = "confirmation.html"; // Redirect to confirmation page
+  } else {
+    alert("Your cart is empty!");
+  }
+}
+
+
+// Add event listeners for cart actions
+document.addEventListener("click", (e) => {
+  if (e.target.classList.contains("increase-quantity")) {
+    const index = e.target.getAttribute("data-index");
+    cart[index].quantity = (cart[index].quantity || 1) + 1; // Increment quantity
+    updateCheckoutDisplay();
+  }
+
+  if (e.target.classList.contains("decrease-quantity")) {
+    const index = e.target.getAttribute("data-index");
+    if (cart[index].quantity > 1) {
+      cart[index].quantity -= 1; // Decrease quantity
+      updateCheckoutDisplay();
+    }
+  }
+
+  if (e.target.classList.contains("remove-from-cart")) {
+    const index = e.target.getAttribute("data-index");
+    cart.splice(index, 1); // Remove item from cart
+    updateCheckoutDisplay();
+  }
+});
+
+// Add event listener for the promo code
+document.getElementById("apply-promo").addEventListener("click", applyPromoCode);
+
+// Add event listener for completing the purchase
+document.getElementById("complete-purchase").addEventListener("click", completePurchase);
+
+// Display the cart when the page loads
+updateCheckoutDisplay();
+
+  </script>
+</body>
+</html>

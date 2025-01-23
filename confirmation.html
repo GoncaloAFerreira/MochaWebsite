@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Confirmation - Mocha Mocha</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <img src="assets/logo.png" alt="Mocha Mocha Logo" class="logo">
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="menu.html">Menu</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="checkout.html">Checkout</a>  
+      <a href="profile.html">Profile</a>  
+    </nav>
+  </header>
+  <main>
+    <section id="confirmation-section">
+      <h1>Order Confirmation</h1>
+      <p>Thank you for your purchase! Here is your order summary:</p>
+      <div id="order-summary"></div>
+      <p id="order-timestamp"></p>
+      <p id="final-total">Final Total: €0.00</p>
+      <button onclick="window.location.href='menu.html'">Back to Menu</button>
+    </section>
+  </main>
+  
+  <script>
+// Load the order total and details from localStorage
+const orderTotal = localStorage.getItem("orderTotal") || "0.00";
+const orderDetails = JSON.parse(localStorage.getItem("orderDetails")) || [];
+
+// Display the final total
+const finalTotalElement = document.getElementById("final-total");
+finalTotalElement.textContent = `Final Total: €${orderTotal}`;
+
+// Display the order summary
+const orderSummaryElement = document.getElementById("order-summary");
+orderDetails.forEach((item) => {
+  const orderItem = document.createElement("div");
+  orderItem.classList.add("order-item");
+  orderItem.innerHTML = `
+    <p>${item.name} x${item.quantity || 1} (€${(item.price * (item.quantity || 1)).toFixed(2)})</p>
+  `;
+  orderSummaryElement.appendChild(orderItem);
+});
+
+// Clear the order data from localStorage after displaying
+localStorage.removeItem("orderTotal");
+localStorage.removeItem("orderDetails");
+
+// Load the order timestamp from localStorage
+const orderTimestamp = localStorage.getItem("orderTimestamp") || "N/A";
+
+// Display the timestamp
+const timestampElement = document.getElementById("order-timestamp");
+timestampElement.textContent = `Order Placed: ${orderTimestamp}`;
+
+// Clear the timestamp from localStorage
+localStorage.removeItem("orderTimestamp");
+
+  </script>
+</body>
+</html>
