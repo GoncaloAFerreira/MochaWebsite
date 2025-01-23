@@ -82,6 +82,8 @@ const firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
+const storage = firebase.storage(); // Initialize storage
+const db = firebase.firestore();
 
 // DOM Elements
 const signupForm = document.getElementById("signup-form");
@@ -92,6 +94,9 @@ const profileSection = document.getElementById("profile-section");
 const userEmailSpan = document.getElementById("user-email");
 const userEmailDisplay = document.getElementById("user-email-display");
 const messageContainer = document.getElementById("message-container"); // For displaying dynamic messages
+const uploadProfilePictureButton = document.getElementById("upload-profile-picture");
+const profilePictureUpload = document.getElementById("profile-picture-upload");
+const profilePicture = document.getElementById("profile-picture");
 
 // Helper function to display messages
 function displayMessage(message, isError = false) {
@@ -115,6 +120,21 @@ auth.onAuthStateChanged((user) => {
     profileSection.style.display = "block";
     userEmailSpan.textContent = user.email;
     userEmailDisplay.textContent = user.email;
+
+    // Retrieve user data from Firestore
+    db.collection("users").doc(user.uid).get()
+      .then((doc) => {
+        if (doc.exists) {
+          const userData = doc.data();
+          console.log("User Data:", userData);
+          // Update UI with user data if needed
+        } else {
+          console.log("No such document!");
+        }
+      })
+      .catch((error) => {
+        console.error("Error getting user data:", error);
+      });
   } else {
     // User is logged out
     authSection.style.display = "block";
@@ -130,6 +150,15 @@ if (signupForm) {
     const password = document.getElementById("signup-password").value;
 
     auth.createUserWithEmailAndPassword(email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        // Add user data to Firestore
+        return db.collection("users").doc(user.uid).set({
+          email: user.email,
+          name: "New User", // Default name
+          createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+      })
       .then(() => {
         displayMessage("Account created successfully!", false);
         signupForm.reset();
@@ -168,5 +197,34 @@ if (logoutButton) {
       .catch((error) => {
         displayMessage(`Error: ${error.message}`, true);
       });
+  });
+}
+
+// Profile Picture Upload
+if (uploadProfilePictureButton) {
+  uploadProfilePictureButton.addEventListener("click", () => {
+    const user = auth.currentUser; // Get the logged-in user
+    if (user && profilePictureUpload.files.length > 0) {
+      const file = profilePictureUpload.files[0];
+      const storageRef = firebase.storage().ref(`profile-pictures/${user.uid}`);
+
+      storageRef.put(file)
+        .then(() => storageRef.getDownloadURL()) // Get the file URL
+        .then((url) => {
+          // Update Firestore with profile picture URL
+          return db.collection("users").doc(user.uid).set({
+            profilePicture: url
+          }, { merge: true });
+        })
+        .then(() => {
+          displayMessage("Profile picture uploaded successfully!", false);
+          profilePicture.src = URL.createObjectURL(file); // Display picture
+        })
+        .catch((error) => {
+          displayMessage(`Error: ${error.message}`, true);
+        });
+    } else {
+      displayMessage("No file selected or user not logged in.", true);
+    }
   });
 }
