@@ -6,9 +6,11 @@
   <title>User Profile</title>
   <link rel="stylesheet" href="styles.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/9.18.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.18.0/firebase-auth-compat.js"></script>
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.18.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.18.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.18.0/firebase-storage-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.18.0/firebase-firestore-compat.js"></script>
 </head>
 <body>
   <header>
@@ -43,6 +45,7 @@
       <img id="profile-picture" src="default-profile.png" alt="Profile Picture" width="150">
       <input type="file" id="profile-picture-upload">
       <button id="upload-profile-picture">Upload Profile Picture</button>
+      <div id="message-container" style="display: none;"></div>
     
       <h2>Update Email</h2>
       <form id="update-email-form">
