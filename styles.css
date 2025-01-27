@@ -49,6 +49,13 @@ header nav a:hover {
   transform: scale(1.1);
 }
 
+nav {
+  position: sticky;
+  top: 0;
+  background-color: #6b4226;
+  z-index: 1000;
+}
+
 /* Footer */
 footer {
   background-color: #6b4226; /* Coffee brown */
@@ -107,6 +114,11 @@ button:hover {
   background-color: #b68d5d; /* Gold hover */
   transform: scale(1.05);
 }
+
+nav a:hover {
+  color: #007BFF;
+  text-decoration: underline;
+}
   
 /* Hero Section */
 .hero {
@@ -141,6 +153,7 @@ button:hover {
   .hero h1 {
     font-size: 48px;
     margin-bottom: 20px;
+    animation: fadeIn 1s ease-in-out;
   }
   
   .hero p {
@@ -172,12 +185,12 @@ button:hover {
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
-    transition: all 0.3s ease;
+    transition: background 0.3s ease, transform 0.2s ease;
   }
   
   button:hover {
     background-color: #b68d5d; /* Gold hover */
-    transform: scale(1.05);
+    transform: scale(1.1);
   }
   
   /* Product Card Styles */
@@ -695,14 +708,333 @@ form input, form button {
   font-weight: bold;
 }
 
-  
-  /* Responsive Design: Large Desktops */
-  @media (min-width: 1200px) {
-    .menu-item {
-      width: 250px; /* Increase menu item size for larger screens */
-    }
+input {
+  border: 1px solid #ccc;
+  padding: 8px;
+  border-radius: 4px;
+  width: 100%;
+}
+
+input:focus {
+  border-color: #007BFF;
+  outline: none;
+}
+
+.error-message {
+  color: red;
+  font-size: 0.9rem;
+}
+
+.success-message {
+  color: green;
+  font-size: 0.9rem;
+}
+
+#profile-section {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 20px;
+  background-color: #f4e8d6;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+#profile-picture-section {
+  margin-bottom: 20px;
+}
+
+#profile-picture {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+#profile-picture-upload {
+  display: block;
+  margin: 10px auto;
+}
+
+#profile-options form {
+  margin-bottom: 15px;
+}
+
+#profile-options input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+#profile-options button {
+  padding: 10px 20px;
+  background-color: #6b4226;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#profile-options button:hover {
+  background-color: #b68d5d;
+}
+
+#profile-message {
+  margin-top: 15px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* Blog Section */
+.blog-section {
+  padding: 80px 20px;
+  background-color: #f4e8d6; /* Creamy coffee background */
+  text-align: center;
+}
+
+.blog-section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 40px;
+  color: #6b4226; /* Coffee brown header */
+}
+
+.blog-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.blog-post {
+  background: #fff;
+  padding: 20px; /* Add padding inside the cards */
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.blog-post:hover {
+  transform: translateY(-5px); /* Lift effect */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Enhanced shadow */
+}
+
+.blog-post img {
+  width: 100%;
+  height: auto;
+  transition: transform 0.3s ease;
+}
+
+.blog-post:hover img {
+  transform: scale(1.1);
+}
+
+
+.blog-post h3 {
+  font-size: 1.5rem;
+  margin: 20px 15px 10px;
+  color: #6b4226; /* Coffee brown */
+  transition: color 0.3s ease;
+}
+
+.blog-post h3:hover {
+  color: #b68d5d; /* Gold hover effect */
+}
+
+.blog-post p {
+  font-size: 1rem;
+  margin: 0 15px 20px;
+  color: #4e3629; /* Dark brown */
+}
+
+.read-more {
+  display: inline-block;
+  font-size: 0.9rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: white;
+  background: #6b4226; /* Coffee brown button */
+  padding: 10px 20px;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.read-more:hover {
+  background: #b68d5d; /* Gold hover */
+  transform: translateY(-2px); /* Slight lift */
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.blog-post {
+  animation: slideIn 0.8s ease-in-out;
+}
+
+.testimonials-section {
+  padding: 50px 20px;
+  background: #f4e8d6;
+  text-align: center;
+}
+
+.testimonial-container {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.testimonial {
+  max-width: 300px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.testimonial h4 {
+  margin-top: 15px;
+  color: #6b4226;
+}
+
+/* Featured Products Section */
+.featured-products-section {
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.product-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Adjust card size */
+  gap: 20px; /* Proper spacing between cards */
+  max-width: 1200px;
+  margin: 0 auto; /* Center the container */
+}
+
+.product {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  overflow: hidden;
+  padding: 20px; /* Balanced padding */
+  text-align: center;
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  align-items: center; /* Center content horizontally */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product:hover {
+  transform: translateY(-5px); /* Subtle lift effect */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); /* Slightly enhanced shadow */
+}
+
+.product img {
+  width: 100%; /* Ensure full-width within container */
+  max-width: 150px; /* Set a consistent size for all images */
+  height: 150px; /* Fixed height for uniformity */
+  object-fit: cover; /* Maintain aspect ratio and crop if necessary */
+  border-radius: 4px; /* Slight rounding */
+  margin-bottom: 10px; /* Space between image and text */
+}
+
+.product h3 {
+  font-size: 1rem; /* Smaller heading font size */
+  margin: 10px 0 5px; /* Adjust spacing around the title */
+  color: #6b4226; /* Coffee brown */
+}
+
+.product p {
+  font-size: 0.9rem; /* Slightly smaller text for price */
+  color: #4e3629; /* Darker brown for text */
+  margin: 0;
+}
   
+/* Subscription Section */
+.subscribe-section {
+  padding: 50px 20px;
+  background: #f4e8d6; /* Match the coffee brown background */
+  color: white;
+  text-align: center;
+}
+
+.subscribe-section h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  color: #6b4226; /* White text for the heading */
+}
+
+.subscribe-section p {
+  font-size: 1rem;
+  margin-bottom: 20px;
+  color: black; /* Lighter cream for text */
+}
+
+.subscribe-section form {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap; /* Wrap elements on smaller screens */
+}
+
+.subscribe-section input {
+  padding: 10px;
+  width: 250px;
+  border: 2px solid #fff; /* White border for visibility */
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.subscribe-section input:focus {
+  outline: none;
+  border-color: #b68d5d; /* Gold border on focus */
+}
+
+.subscribe-section button {
+  padding: 10px 20px;
+  background: #b68d5d; /* Gold color for button */
+  color: white;
+  font-size: 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.subscribe-section button:hover {
+  background: #6b4226; /* White hover effect */
+  color: #fff; /* Coffee brown text on hover */
+  transform: scale(1.05); /* Slight zoom on hover */
+}
+
+.social-section {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.social-icons a {
+  margin: 0 10px;
+  color: #6b4226;
+  text-decoration: none;
+  font-size: 1.2rem;
+}
+
+.social-icons a:hover {
+  color: #b68d5d;
+}
+
 /* Tablet View Adjustments (768px and below) */
 @media (max-width: 768px) {
   /* Header Navigation */
@@ -779,66 +1111,42 @@ form input, form button {
   .order-item {
     font-size: 14px;
   }
-}
+  .blog-container {
+    grid-template-columns: 1fr; /* Stack posts */
+  }
 
-#profile-section {
-  max-width: 600px;
-  margin: 0 auto;
-  text-align: center;
-  padding: 20px;
-  background-color: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
+  .blog-section h2 {
+    font-size: 1.8rem; /* Adjust header size */
+  }
 
-#profile-picture-section {
-  margin-bottom: 20px;
+  /* Featured Products */
+  .product-container {
+    grid-template-columns: repeat(2, 1fr); /* Two columns for featured products */
+    gap: 15px;
+  }
+  
+  /* Testimonials */
+  .testimonial-container {
+   flex-direction: column; /* Stack testimonials */
+    gap: 20px;
+  }
+  
+  /* Subscription Form */
+  .subscribe-section form {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .subscribe-section form input,
+  .subscribe-section form button {
+    width: 100%; /* Full width for input and button */
+  }
+  
+  /* Blog Posts */
+  .blog-container {
+    grid-template-columns: repeat(2, 1fr); /* Two columns for blog posts */
+  }
 }
-
-#profile-picture {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 10px;
-}
-
-#profile-picture-upload {
-  display: block;
-  margin: 10px auto;
-}
-
-#profile-options form {
-  margin-bottom: 15px;
-}
-
-#profile-options input {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 5px;
-  border: 1px solid #ddd;
-}
-
-#profile-options button {
-  padding: 10px 20px;
-  background-color: #6b4226;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-#profile-options button:hover {
-  background-color: #b68d5d;
-}
-
-#profile-message {
-  margin-top: 15px;
-  font-size: 14px;
-  font-weight: bold;
-}
-
 
 /* Mobile View Adjustments (480px and below) */
 @media (max-width: 480px) {
@@ -930,4 +1238,46 @@ form input, form button {
     font-size: 12px;
     padding: 8px;
   }
+
+  .blog-container {
+    grid-template-columns: 1fr; /* Stack posts */
+  }
+
+  .blog-section h2 {
+    font-size: 1.8rem; /* Adjust header size */
+  }
+
+    /* Featured Products */
+    .product-container {
+      grid-template-columns: 1fr; /* Stack products */
+      gap: 10px;
+    }
+  
+    /* Testimonials */
+    .testimonial-container {
+      flex-direction: column;
+      gap: 15px;
+    }
+  
+    /* Subscription Form */
+    .subscribe-section form {
+      flex-direction: column;
+      gap: 10px;
+    }
+  
+    .subscribe-section form input,
+    .subscribe-section form button {
+      width: 100%; /* Full width for smaller devices */
+    }
+  
+    /* Blog Posts */
+    .blog-container {
+      grid-template-columns: 1fr; /* Stack blog posts */
+    }
+  
+    /* Buttons and Text */
+    button,
+    .read-more {
+      font-size: 14px; /* Smaller text size for buttons */
+    }
 }

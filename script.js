@@ -91,7 +91,7 @@ const loginForm = document.getElementById("login-form");
 const logoutButton = document.getElementById("logout-button");
 const authSection = document.getElementById("auth-section");
 const profileSection = document.getElementById("profile-section");
-const userEmailSpan = document.getElementById("user-email");
+const userEmailSpan = document.getElementById("user-email-display");
 const userEmailDisplay = document.getElementById("user-email-display");
 const messageContainer = document.getElementById("message-container"); // For displaying dynamic messages
 const uploadProfilePictureButton = document.getElementById("upload-profile-picture");
@@ -200,31 +200,4 @@ if (logoutButton) {
   });
 }
 
-// Profile Picture Upload
-if (uploadProfilePictureButton) {
-  uploadProfilePictureButton.addEventListener("click", () => {
-    const user = auth.currentUser; // Get the logged-in user
-    if (user && profilePictureUpload.files.length > 0) {
-      const file = profilePictureUpload.files[0];
-      const storageRef = firebase.storage().ref(`profile-pictures/${user.uid}`);
 
-      storageRef.put(file)
-        .then(() => storageRef.getDownloadURL()) // Get the file URL
-        .then((url) => {
-          // Update Firestore with profile picture URL
-          return db.collection("users").doc(user.uid).set({
-            profilePicture: url
-          }, { merge: true });
-        })
-        .then(() => {
-          displayMessage("Profile picture uploaded successfully!", false);
-          profilePicture.src = URL.createObjectURL(file); // Display picture
-        })
-        .catch((error) => {
-          displayMessage(`Error: ${error.message}`, true);
-        });
-    } else {
-      displayMessage("No file selected or user not logged in.", true);
-    }
-  });
-}
