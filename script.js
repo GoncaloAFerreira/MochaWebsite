@@ -1,3 +1,4 @@
+//Javascript functions
 document.addEventListener("DOMContentLoaded", () => {
   let cart = JSON.parse(localStorage.getItem("cart")) || []; // Load cart from localStorage
 
