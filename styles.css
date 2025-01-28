@@ -1035,6 +1035,35 @@ input:focus {
   color: #b68d5d;
 }
 
+/* Social Media Icons */
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 15px; /* Space between icons */
+  margin-top: 20px;
+}
+
+.social-icons a {
+  font-size: 30px; /* Adjust size */
+  color: #fff; /* White color */
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.social-icons a:hover {
+  transform: scale(1.2); /* Slight zoom on hover */
+}
+
+/* Instagram Icon */
+.social-icons a:nth-child(1) {
+  color: #E4405F; /* Instagram Pink */
+}
+
+/* TikTok Icon */
+.social-icons a:nth-child(2) {
+  color: #000; /* TikTok Black */
+}
+
+
 /* Tablet View Adjustments (768px and below) */
 @media (max-width: 768px) {
   /* Header Navigation */
