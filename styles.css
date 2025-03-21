@@ -492,14 +492,15 @@ nav a:hover {
     font-size: 16px;
   }
 
-  #profile-section {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    background-color: transparent;
-    box-shadow: none;
-  }
+#profile-section {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-color: transparent;
+  box-shadow: none;
+}
   
   #profile-options, #purchase-history {
     margin: 20px 0;
