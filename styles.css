@@ -63,7 +63,7 @@ footer {
   padding: 1rem 0;
   font-size: 14px;
   border-top: 3px solid #b68d5d; /* Gold accent */
-  position: relative;
+  position: relative; 
 }
 
 footer a {
@@ -96,23 +96,6 @@ h2 {
 
 h3 {
   font-size: 1.5rem;
-}
-
-/* Buttons */
-button {
-  background-color: #6b4226; /* Coffee brown */
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-button:hover {
-  background-color: #b68d5d; /* Gold hover */
-  transform: scale(1.05);
 }
 
 nav a:hover {
@@ -175,7 +158,7 @@ nav a:hover {
   .hero .btn:hover {
     background-color: #6b4226; /* Coffee brown */
   }
-  
+
   /* Buttons */
   button {
     background-color: #6b4226; /* Coffee brown */
@@ -190,7 +173,7 @@ nav a:hover {
   
   button:hover {
     background-color: #b68d5d; /* Gold hover */
-    transform: scale(1.1);
+    transform: scale(1.05);
   }
   
   /* Product Card Styles */
@@ -412,6 +395,7 @@ nav a:hover {
     margin: 0 auto;
   }
 
+  /*Cart Section*/
   #cart-section {
     background-color: #f4e8d6;
     padding: 20px;
@@ -434,7 +418,7 @@ nav a:hover {
   }
   
   .cart-item button {
-    background-color: #b68d5d; /* Gold accent */
+    background-color: #6b4226; /* Gold accent */
     color: white;
     border: none;
     padding: 5px 10px;
@@ -444,23 +428,13 @@ nav a:hover {
   }
   
   .cart-item button:hover {
-    background-color: #6b4226; /* Dark brown */
+    background-color: #b68d5d; /* Dark brown */
   }
   
   .cart-item span {
     font-size: 16px;
     font-weight: bold;
     margin: 0 10px;
-  }
-  
-  #cart-section {
-    background-color: #f4e8d6;
-    padding: 20px;
-    margin: 20px auto;
-    max-width: 600px;
-    text-align: center;
-    border: 1px solid #ddd;
-    border-radius: 10px;
   }
   
   .remove-from-cart {
@@ -519,10 +493,12 @@ nav a:hover {
   }
 
   #profile-section {
-    max-width: 800px;
-    margin: 0 auto;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding: 20px;
+    background-color: transparent;
+    box-shadow: none;
   }
   
   #profile-options, #purchase-history {
@@ -542,52 +518,197 @@ nav a:hover {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   }
 
-  #auth-section {
-    display: block; /* Show the login/signup forms by default */
-  }
-  
-  #profile-section {
-    display: none; /* Hide the profile section by default */
-  }
+/* Auth & Profile Box Layout */
+body.profile-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
 
-  #auth-section {
-    display: block; /* Show login/signup forms */
-    max-width: 400px;
-    margin: 0 auto; /* Center the section horizontally */
-    padding: 20px;
-    background-color: #fff; /* Add background for contrast */
-    border-radius: 10px; /* Rounded corners */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a slight shadow */
-  }
-  
-  #auth-section h2 {
-    text-align: center; /* Center align the headings */
-    margin-bottom: 20px;
-  }
-  
-  #auth-section form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-  }
-  
-  #auth-section input,
-  #auth-section button {
-    padding: 10px;
-    font-size: 16px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-  }
-  
-  #auth-section button {
-    background-color: #6b4226;
-    color: white;
-    cursor: pointer;
-  }
-  
-  #auth-section button:hover {
-    background-color: #b68d5d;
-  }
+main.profile-main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+}
+
+.profile-card {
+  background-color: #fff;
+  padding: 40px 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  text-align: center;
+  max-width: 450px;
+  width: 100%;
+  box-sizing: border-box;
+  max-width: 400px; /* match other forms */
+}
+
+.profile-card h2 {
+  font-size: 26px;
+  color: #6b4226; /* Coffee brown */
+  margin-bottom: 10px;
+}
+
+.profile-card p {
+  font-size: 16px;
+  color: #4e3629;
+  margin-bottom: 20px;
+}
+
+.profile-card button#logout-button {
+  background-color: #6b4226;
+  color: #fff;
+  font-size: 16px;
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 30px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.profile-card button#logout-button:hover {
+  background-color: #b68d5d;
+  transform: scale(1.05);
+}
+
+#auth-section h2,
+#profile-section h2 {
+  font-size: 24px;
+  color: #6b4226;
+  margin-bottom: 20px;
+}
+
+#auth-section p,
+#profile-section p {
+  font-size: 14px;
+  color: #4e3629;
+}
+
+#auth-section form,
+#profile-section div {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Inputs */
+#auth-section input {
+  padding: 12px 15px;
+  font-size: 14px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+#auth-section button,
+#profile-section button {
+  background-color: #6b4226;
+  color: white;
+  font-size: 16px;
+  padding: 12px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#auth-section button:hover,
+#profile-section button:hover {
+  background-color: #b68d5d;
+  transform: scale(1.05);
+}
+
+/* Edit Profile Section */
+.edit-profile-form {
+  background-color: #f9f5f1; /* Light cream background */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.edit-profile-form h3 {
+  font-size: 20px;
+  color: #6b4226;
+  margin-bottom: 15px;
+}
+
+.edit-profile-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.edit-profile-form input {
+  padding: 12px 15px;
+  font-size: 14px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.edit-profile-form button {
+  background-color: #6b4226;
+  color: white;
+  font-size: 16px;
+  padding: 12px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.edit-profile-form button:hover {
+  background-color: #b68d5d;
+  transform: scale(1.05);
+}
+
+.edit-profile-form .form-message {
+  margin-top: 10px;
+  font-size: 14px;
+  color: red;
+}
+
+/* Fade animations */
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 0.5s forwards;
+}
+
+.fade-out {
+  opacity: 1;
+  animation: fadeOut 0.5s forwards;
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+  to { opacity: 0; }
+}
+
+
+/* Links */
+#auth-section a {
+  color: #b68d5d;
+  text-decoration: none;
+}
+
+#auth-section a:hover {
+  text-decoration: underline;
+}
+
+.form-message {
+  margin-top: 10px;
+  font-size: 14px;
+  color: red; /* Or use green dynamically in JS */
+}
   
   /* Confirmation Page Styles */
 #confirmation-section {
@@ -634,21 +755,6 @@ nav a:hover {
   font-size: 1.5rem;
   margin: 1rem 0;
   color: #6b4226;
-}
-
-button {
-  background-color: #6b4226;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-button:hover {
-  background-color: #b68d5d;
 }
 
 /* Forms */
@@ -740,6 +846,8 @@ input:focus {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
+/*Profile Picture Section*/
+/*TODO*/
 #profile-picture-section {
   margin-bottom: 20px;
 }
@@ -884,6 +992,8 @@ input:focus {
   animation: slideIn 0.8s ease-in-out;
 }
 
+/*Testimonials Section*/
+
 .testimonials-section {
   padding: 50px 20px;
   background: #f4e8d6;
@@ -902,11 +1012,21 @@ input:focus {
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .testimonial h4 {
   margin-top: 15px;
   color: #6b4226;
+}
+
+.testimonial:hover {
+  transform: translateY(-5px); /* Lift effect */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Enhanced shadow */
+}
+
+.testimonial {
+  animation: slideIn 0.8s ease-in-out;
 }
 
 /* Featured Products Section */
@@ -961,6 +1081,10 @@ input:focus {
   color: #4e3629; /* Darker brown for text */
   margin: 0;
 }
+
+.product {
+  animation: slideIn 0.8s ease-in-out;
+}
   
 /* Subscription Section */
 .subscribe-section {
@@ -987,6 +1111,7 @@ input:focus {
   justify-content: center;
   gap: 10px;
   flex-wrap: wrap; /* Wrap elements on smaller screens */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .subscribe-section input {
@@ -1004,7 +1129,7 @@ input:focus {
 
 .subscribe-section button {
   padding: 10px 20px;
-  background: #b68d5d; /* Gold color for button */
+  background: #6b4226; /* Gold color for button */
   color: white;
   font-size: 1rem;
   border: none;
@@ -1014,9 +1139,18 @@ input:focus {
 }
 
 .subscribe-section button:hover {
-  background: #6b4226; /* White hover effect */
+  background: #b68d5d; /* White hover effect */
   color: #fff; /* Coffee brown text on hover */
   transform: scale(1.05); /* Slight zoom on hover */
+}
+
+.subscribe-section form:hover {
+  transform: translateY(-5px); /* Lift effect */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Enhanced shadow */
+}
+
+.subscribe-section form{
+  animation: slideIn 0.8s ease-in-out;
 }
 
 .social-section {
@@ -1124,11 +1258,6 @@ input:focus {
   #auth-section {
     max-width: 90%;
     padding: 20px;
-  }
-
-  #auth-section input,
-  #auth-section button {
-    font-size: 14px;
   }
 
   /* Confirmation Section */
@@ -1252,11 +1381,6 @@ input:focus {
     font-size: 18px;
   }
 
-  #auth-section input,
-  #auth-section button {
-    font-size: 14px;
-  }
-
   /* Confirmation Section */
   #confirmation-section {
     padding: 1rem;
@@ -1308,5 +1432,18 @@ input:focus {
     button,
     .read-more {
       font-size: 14px; /* Smaller text size for buttons */
+    }
+
+   
+    .profile-card {
+      padding: 30px 20px;
+    }
+    
+    .edit-profile-form form {
+      gap: 10px;
+    }
+    
+    .profile-card button#logout-button {
+      padding: 10px;
     }
 }
